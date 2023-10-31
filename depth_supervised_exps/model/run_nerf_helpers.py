@@ -672,10 +672,10 @@ def sample_pdf_reformulation_return_u(bins, weights, tau, T, near, far, N_sample
     samples1 = torch.where(torch.logical_and(tau_diff_g < zero_threshold, tau_diff_g > -zero_threshold), s_left, dummy)
 
     ### Increasing
-    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
+    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
 
     ### Decreasing
-    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
+    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
 
     ## Check for nan --> need to figure out why
     samples = torch.where(torch.isnan(samples3), s_left, samples3)
@@ -758,10 +758,10 @@ def sample_pdf_reformulation_joint(bins, weights, tau, T, near, far, N_samples, 
     samples1 = torch.where(torch.logical_and(tau_diff_g < zero_threshold, tau_diff_g > -zero_threshold), s_left, dummy)
 
     ### Increasing
-    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
+    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
 
     ### Decreasing
-    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
+    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
 
     ## Check for nan --> need to figure out why
     samples = torch.where(torch.isnan(samples3), s_left, samples3)
@@ -848,10 +848,10 @@ def sample_pdf_reformulation_joint_return_u(bins, weights, tau, T, near, far, N_
     samples1 = torch.where(torch.logical_and(tau_diff_g < zero_threshold, tau_diff_g > -zero_threshold), s_left, dummy)
 
     ### Increasing
-    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
+    samples2 = torch.where(tau_diff_g >= zero_threshold, pw_linear_sample_increasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples1)
 
     ### Decreasing
-    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing_v2(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
+    samples3 = torch.where(tau_diff_g <= -zero_threshold, pw_linear_sample_decreasing(s_left, s_right, T_left, tau_left, tau_right, u, epsilon=epsilon_), samples2)
 
     ## Check for nan --> need to figure out why
     samples = torch.where(torch.isnan(samples3), s_left, samples3)
