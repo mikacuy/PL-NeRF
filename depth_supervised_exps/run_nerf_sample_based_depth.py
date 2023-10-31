@@ -26,7 +26,7 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm, trange
 
 from model import NeRF, get_embedder, get_rays, sample_pdf, img2mse, mse2psnr, to8b, \
-    select_coordinates, to16b, resnet18_skip, sample_pdf_reformulation, compute_space_carving_loss, get_space_carving_idx, \
+    select_coordinates, to16b, sample_pdf_reformulation, compute_space_carving_loss, get_space_carving_idx, \
     sample_pdf_return_u, sample_pdf_joint_return_u, sample_pdf_reformulation_joint, sample_pdf_reformulation_return_u, sample_pdf_reformulation_joint_return_u
 from data import load_scene_blender, load_scene_blender_depth, load_scene_blender2_depth
 from train_utils import MeanTracker, update_learning_rate
