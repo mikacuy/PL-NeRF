@@ -965,28 +965,6 @@ def render_rays(ray_batch,
 
     return ret
 
-def get_ray_batch_from_one_image(H, W, i_train, images, depths, valid_depths, poses, intrinsics, args):
-    coords = torch.stack(torch.meshgrid(torch.linspace(0, H-1, H), torch.linspace(0, W-1, W), indexing='ij'), -1)  # (H, W, 2)
-    img_i = np.random.choice(i_train)
-    target = images[img_i]
-    target_depth = depths[img_i]
-    target_valid_depth = valid_depths[img_i]
-    pose = poses[img_i]
-    intrinsic = intrinsics[img_i, :]
-    rays_o, rays_d = get_rays(H, W, intrinsic, pose)  # (H, W, 3), (H, W, 3)
-    select_coords = select_coordinates(coords, args.N_rand)
-    rays_o = rays_o[select_coords[:, 0], select_coords[:, 1]]  # (N_rand, 3)
-    rays_d = rays_d[select_coords[:, 0], select_coords[:, 1]]  # (N_rand, 3)
-    target_s = target[select_coords[:, 0], select_coords[:, 1]]  # (N_rand, 3)
-    target_d = target_depth[select_coords[:, 0], select_coords[:, 1]]  # (N_rand, 1) or (N_rand, 2)
-    target_vd = target_valid_depth[select_coords[:, 0], select_coords[:, 1]]  # (N_rand, 1)
-    if args.depth_loss_weight > 0.:
-        depth_range = precompute_depth_sampling(target_d)
-        batch_rays = torch.stack([rays_o, rays_d, depth_range], 0)  # (3, N_rand, 3)
-    else:
-        batch_rays = torch.stack([rays_o, rays_d], 0)  # (2, N_rand, 3)
-    return batch_rays, target_s, target_d, target_vd, img_i
-
 def get_ray_batch_from_one_image_hypothesis_idx(H, W, img_i, images, depths, valid_depths, poses, intrinsics, all_hypothesis, args, space_carving_idx=None, cached_u=None, gt_valid_depths=None):
     coords = torch.stack(torch.meshgrid(torch.linspace(0, H-1, H), torch.linspace(0, W-1, W), indexing='ij'), -1)  # (H, W, 2)
     # img_i = np.random.choice(i_train)
@@ -1026,11 +1004,8 @@ def get_ray_batch_from_one_image_hypothesis_idx(H, W, img_i, images, depths, val
     space_carving_mask = gt_valid_depths[img_i].squeeze()
     space_carving_mask = space_carving_mask[select_coords[:, 0], select_coords[:, 1]]
 
-    if args.depth_loss_weight > 0.:
-        depth_range = precompute_depth_sampling(target_d)
-        batch_rays = torch.stack([rays_o, rays_d, depth_range], 0)  # (3, N_rand, 3)
-    else:
-        batch_rays = torch.stack([rays_o, rays_d], 0)  # (2, N_rand, 3)
+    batch_rays = torch.stack([rays_o, rays_d], 0)  # (2, N_rand, 3)
+
     return batch_rays, target_s, target_d, target_vd, img_i, target_h, space_carving_mask, curr_cached_u
 
 def train_nerf(images, depths, valid_depths, poses, intrinsics, i_split, args, scene_sample_params, lpips_alex, gt_depths, gt_valid_depths, all_depth_hypothesis, is_init_scales=False, scales_init=None, shifts_init=None):
@@ -1180,9 +1155,6 @@ def train_nerf(images, depths, valid_depths, poses, intrinsics, i_split, args, s
         else:
             space_carving_loss = torch.mean(torch.zeros([target_h.shape[0]]).to(target_h.device))
 
-        if args.depth_loss_weight > 0.:
-            depth_loss = compute_depth_loss(extras['depth_map'], extras['z_vals'], extras['weights'], target_d, target_vd)
-            loss = loss + args.depth_loss_weight * depth_loss
         if 'rgb0' in extras:
             img_loss0 = img2mse(extras['rgb0'], target_s)
             psnr0 = mse2psnr(img_loss0)
@@ -1224,9 +1196,6 @@ def train_nerf(images, depths, valid_depths, poses, intrinsics, i_split, args, s
 
             if args.space_carving_weight > 0.:
                 tb.add_scalars('space_carving_loss', {'train': space_carving_loss.item()}, i)
-
-            if args.depth_loss_weight > 0.:
-                tb.add_scalars('depth_loss', {'train': depth_loss.item()}, i)
 
             tb.add_scalars('psnr', {'train': psnr.item()}, i)
             if 'rgb0' in extras:
