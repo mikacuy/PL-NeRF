@@ -1,0 +1,17 @@
+ckpt_dir = logs_llff_reproduce
+dataset = llff
+
+factor = 8
+llffhold = 8
+
+N_rand = 1024
+N_samples = 128
+N_importance = 64
+
+use_viewdirs = True
+raw_noise_std = 1e0
+
+num_iterations=500000
+
+mode = linear
+color_mode = midpoint
