@@ -571,18 +571,9 @@ def create_nerf(args, scene_render_params):
     ch_grad_names = []
 
 
-    if not args.cimle_white_balancing:
-        for name, param in model.named_parameters():
-            grad_vars.append(param)
-            grad_names.append(name)
-    else:
-        for name, param in model.named_parameters():
-            if "ch_cam_linear" not in name:
-                grad_vars.append(param)
-                grad_names.append(name)
-            else:
-                ch_grad_vars.append(param)
-                ch_grad_names.append(name)
+    for name, param in model.named_parameters():
+        grad_vars.append(param)
+        grad_names.append(name)
 
 
     model_fine = None
@@ -594,18 +585,10 @@ def create_nerf(args, scene_render_params):
         model_fine = nn.DataParallel(model_fine).to(device)
         # grad_vars += list(model_fine.parameters())
 
-        if not args.cimle_white_balancing:
-            for name, param in model_fine.named_parameters():
-                grad_vars.append(param)
-                grad_names.append(name)
-        else:
-            for name, param in model_fine.named_parameters():
-                if "ch_cam_linear" not in name:
-                    grad_vars.append(param)
-                    grad_names.append(name)
-                else:
-                    ch_grad_vars.append(param)
-                    ch_grad_names.append(name)
+        for name, param in model_fine.named_parameters():
+            grad_vars.append(param)
+            grad_names.append(name)
+
 
     network_query_fn = lambda inputs, viewdirs, embedded_cam, network_fn : run_network(inputs, viewdirs, embedded_cam, network_fn,
                                                                 embed_fn=embed_fn,
