@@ -889,14 +889,6 @@ def render_rays(ray_batch,
             elif mode == "constant":
                 z_samples, u = sample_pdf_joint_return_u(z_vals_mid, weights[...,1:-1], N_samples, det=(perturb==0.), pytest=pytest)
 
-        if scale_sample_gradient:
-            with torch.no_grad():
-                pts = rays_o[...,None,:] + rays_d[...,None,:] * z_samples[...,:,None]
-                samples_raw = network_query_fn(pts, viewdirs, embedded_cam, network_fn)
-            
-            z_samples = Scale_Gradient_PDF.apply(z_samples, T_below, tau_below, bin_below, samples_raw)
-
-
         pred_depth_hyp = z_samples
 
     elif N_importance > 0:
@@ -1137,7 +1129,7 @@ def train_nerf(images, depths, valid_depths, poses, intrinsics, i_split, args, s
         render_kwargs_train["cached_u"] = curr_cached_u
 
         rgb, _, _, extras = render_hyp(H, W, None, chunk=args.chunk, rays=batch_rays, verbose=i < 10, retraw=True,  is_joint=args.is_joint, \
-            quad_solution_v2=args.quad_solution_v2, scale_sample_gradient = args.scale_sample_gradient, **render_kwargs_train)
+            quad_solution_v2=args.quad_solution_v2, **render_kwargs_train)
 
         # compute loss and optimize
         optimizer.zero_grad()
