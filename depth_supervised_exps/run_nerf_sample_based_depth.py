@@ -600,11 +600,6 @@ def create_nerf(args, scene_render_params):
     # Create optimizer
     optimizer = torch.optim.Adam(params=grad_vars, lr=args.lrate, betas=(0.9, 0.999))
 
-    if args.cimle_white_balancing:
-        print("Using different learning rate for cimle weights.")
-        optimizer.add_param_group({"params": ch_grad_vars, "lr":args.cimle_lrate})
-        grad_vars = grad_vars + ch_grad_vars
-
     start = 0
 
     ##########################
