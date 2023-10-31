@@ -1321,7 +1321,7 @@ def config_parser():
                         help='config file path')
     parser.add_argument("--expname", type=str, default=None, 
                         help='specify the experiment, required for "test" and "video", optional for "train"')
-    parser.add_argument("--dataset", type=str, default="scannet", 
+    parser.add_argument("--dataset", type=str, default="blender2_depth", 
                         help='dataset used -- selects which dataloader"')
 
     # training options
@@ -1384,10 +1384,8 @@ def config_parser():
                         help='checkpoint directory')
 
     # data options
-    parser.add_argument("--scene_id", type=str, default="scene0710_00",
+    parser.add_argument("--scene_id", type=str, default="chair",
                         help='scene identifier')
-    parser.add_argument("--depth_prior_network_path", type=str, default="",
-                        help='path to the depth prior network checkpoint to be used')
     parser.add_argument("--data_dir", type=str, default="",
                         help='directory containing the scenes')
 
