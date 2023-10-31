@@ -30,7 +30,7 @@ from run_nerf_helpers import *
 
 from load_llff import load_llff_data
 from load_dtu import load_dtu, load_dtu2
-from load_blender import load_scene_blender_fixed_dist_new, load_scene_blender2
+from load_blender import load_blender_data, load_scene_blender_fixed_dist_new, load_scene_blender2
 
 from natsort import natsorted 
 from argparse import Namespace
