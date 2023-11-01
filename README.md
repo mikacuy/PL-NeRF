@@ -26,8 +26,8 @@ mkdir data
 ```
 Download the following data into this folder:
 - Original hemisphere data for the Blender scenes [here](https://drive.google.com/file/d/18JxhpWD-4ZmuFKLzKlAw-w5PpzZxXOcG/view?usp=share_link).
-- Our processed blender scenes rendered at different fixed camera distances (for eval) are found [here]().
-- - Our processed blender scenes rendered at different random camera distances (for multi-distance training) are found [here]().
+- Our processed blender scenes rendered at different fixed camera distances (for eval) are found [here](http://download.cs.stanford.edu/orion/pl-nerf/blender_data/fixed_dist_new-rgba.zip).
+- - Our processed blender scenes rendered at different random camera distances (for multi-distance training) are found [here](http://download.cs.stanford.edu/orion/pl-nerf/blender_data/randdist-0.5_1.0-rgba.zip).
 
 ### Environment
 This was tested with CUDA 11.3 using an NVIDIA V100, A5000 and RTX GPUs.
