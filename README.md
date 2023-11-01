@@ -1,7 +1,7 @@
 # PL-NeRF
 **[NeRF Revisited: Fixing Quadrature Instability in Volume Rendering](https://pl-nerf.github.io)** 
 
-Mikaela Angelina Uy, George Kiyohiro Nakayama, Guandao Yang, Rahul Krishna Thomas, Leonidas Guibas and Ke Li
+Mikaela Angelina Uy, George Kiyohiro Nakayama, Guandao Yang, Rahul Krishna Thomas, Leonidas Guibas, Ke Li
 
 Neurips 2023
 
