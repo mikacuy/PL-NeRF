@@ -62,7 +62,7 @@ python3 run_nerf_sample_based_depth.py train --scene_id chair_rgba_randdist_nv10
 
 ### PL-MipNeRF Experiments
 
-We also release training and evaluation scripts and model weights for PL-MipNeRF on Blender Synthetic dataset. Refer to [this file](PL-NeRF-nerfstudio/README.md) for more details. The PL-MipNeRF codebase uses NeRFStudio.
+We also release training and evaluation scripts and model weights for PL-MipNeRF on Blender Synthetic dataset under the [PL-NeRF-nerfstudio](PL-NeRF-nerfstudio) directory. Refer to [this file](PL-NeRF-nerfstudio/README.md) for more details. The PL-MipNeRF codebase uses NeRFStudio.
 
 ## Related Work
 This work and codebase is related to the following previous works:
