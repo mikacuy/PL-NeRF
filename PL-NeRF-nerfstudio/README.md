@@ -6,7 +6,7 @@ This is the official PL-MipNeRF implementation using NeRFStudio.
 PL-MipNeRF is tested on Blender Synthetic dataset. Please follow the main repo's data preparation to setup data. 
 
 ### Installation 
-PL-MipNeRF relies on [NeRFStudio](https://github.com/nerfstudio-project/nerfstudio/tree/main). Please install NeRFStudio and its dependencies following the instructions from their repo. We tested our model on version 0.3.4. 
+PL-MipNeRF relies on [NeRFStudio](https://github.com/nerfstudio-project/nerfstudio/tree/main). Please install NeRFStudio and its dependencies following the instructions from their repo. We tested our model on version 0.3.4 with CUDA 11.8. Refer to its website for installation details.  
 
 After installing NeRFStudio, run 
 ```
