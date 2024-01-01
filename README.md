@@ -60,6 +60,10 @@ python3 run_nerf_sample_based_depth.py train --scene_id chair_rgba_randdist_nv10
 python3 run_nerf_sample_based_depth.py train --scene_id chair_rgba_randdist_nv100_dist0.5-1.0_depth_sfn --data_dir /orion/u/mikacuy/coordinate_mvs/piecewise_linear/nerf_synthetic/randdist-0.5_1.0-rgba --dataset blender2_depth --ckpt_dir log_depth --expname=chair_constant --N_samples=64 --N_importance=128 --mode=constant
 ```
 
+### PL-MipNeRF Experiments
+
+We also release training and evaluation scripts and model weights for PL-MipNeRF on Blender Synthetic dataset. Refer to [this file](PL-NeRF-nerfstudio/README.md) for more details. The PL-MipNeRF codebase uses NeRFStudio.
+
 ## Related Work
 This work and codebase is related to the following previous works:
 * <a href="https://github.com/yenchenlin/nerf-pytorch" target="_blank">NeRF-Pytorch</a> by Yen-Chen Lin. (2020).

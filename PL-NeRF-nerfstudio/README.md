@@ -25,3 +25,16 @@ To train vanilla MipNeRF, run
 ```
 ns-train mipnerf  --pipeline.model.collider_params near_plane 2.0 far_plane 6.0  --max_num_iterations=1000001 --experiment_name=mipnerf_SCENE blender-data --data data/nerf_synthetic/SCENE
 ```
+
+# Evaluating 
+We provide pretrained model weights for PL-MipNeRF on Blender Synthetic dataset. Please download the weights [here](http://download.cs.stanford.edu/orion/pl-nerf/linear_mip_weights/pretrained.zip). Unzip the file under this directory by 
+```
+unzip [PATH TO pretrained.zip] -d ./
+```
+and run 
+```
+ns-eval --load-config pretrained/linear_SCENE/config.yml
+```
+to obtain rendered test views and reproduce the reported scores. 
+
+Refer to [NerfStudio documentation](https://docs.nerf.studio/) for a detailed evaluation script usage. 
